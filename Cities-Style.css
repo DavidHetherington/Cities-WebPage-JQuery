@@ -1,0 +1,103 @@
+/* -------------------------------------------------------------------------- */
+/*      elements                                                              */
+/* -------------------------------------------------------------------------- */
+
+
+body {
+    width: 1020px;
+    margin-left:auto;
+    margin-right:auto;    
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*      classes                                                               */
+/* -------------------------------------------------------------------------- */
+
+        /* Trick to flush floats and start next element on fresh line */
+.flush-floats {
+    clear:  both;
+}
+
+        /* Add, Delete, Edit buttons */
+.city-edit-button {
+    float:  left;
+    padding: 5px;    
+    margin: 10px;
+    font-size: 120%;
+}
+
+        /* Red warning about items that are not yet implemented */
+.not-implemented {
+    color: red;
+}
+
+.col-city, .col-state, .header-city, .header-state  {
+    text-align: left;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.col-population, .header-population {
+    text-align: right;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.col-crime, .col-cost-of-living, .header-crime, .header-cost-of-living {
+    text-align: center;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.header-city, .header-state, .header-population, .header-crime, .header-cost-of-living {
+    font-family: "Arial", Arial, sans;
+    background-color: BurlyWood 
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*      specific IDs                                                          */
+/* -------------------------------------------------------------------------- */
+
+#cities-description-area {
+  float: left;
+  width: 390px;
+  padding: 10px;
+  display: block; /* for old browsers */
+}
+
+#cities-application-area {
+  float: left;
+  width: 590px;
+  padding: 10px;
+  display: block; /* for old browsers */
+}
+
+#cities-data-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#cities-count-box {
+    font-family: "Arial", Arial, sans;
+    margin-top: 10px; 
+}
+
+#cities-count {
+    font-weight: bold;
+    color: blue;
+}
