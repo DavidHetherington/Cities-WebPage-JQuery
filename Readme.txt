@@ -4,7 +4,7 @@ is built into index.html.
 
 The code builds a table of cities with population, cost
 of living, and crime rate which it gets from the
-REST API provided by CitiesBE.js which is hosted
+RESTful API provided by CitiesBE.js which is hosted
 somewhere else, for example on an Amazon EC2 instance.
 CitiesBE.js in turn accesses the Cities Collection in the 
 asatte-press-city-guide database on Mongolab.com.

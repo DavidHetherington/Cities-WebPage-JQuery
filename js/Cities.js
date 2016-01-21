@@ -7,7 +7,7 @@
 //                                                                             
 //        The code builds a table of cities with population, cost              
 //        of living, and crime rate which it gets from the                     
-//        REST API provided by CitiesBE.js which is hosted                     
+//        RESTful API provided by CitiesBE.js which is hosted                     
 //        somewhere else, for example on an Amazon EC2 instance.               
 //        CitiesBE.js in turn accesses the Cities Collection in the            
 //        asatte-press-city-guide database on Mongolab.com.                    
@@ -27,7 +27,7 @@ $(document).ready(function(){
     //  --- base URL of the  API server.
     var url4APIServer = 'http://ec2-52-91-83-136.compute-1.amazonaws.com';
     
-    //  --- Get the count from the JSONP REST API    
+    //  --- Get the count from the JSONP RESTful API    
     var url4count = url4APIServer + ':3000/api/cities/count?callback=?';
     
     $.getJSON(url4count, function(jsonp){
@@ -36,7 +36,7 @@ $(document).ready(function(){
     });
 
 
-    //  --- Get the list of cities from the JSONP REST API    
+    //  --- Get the list of cities from the JSONP RESTful API    
     var url4list = url4APIServer + ':3000/api/cities/list?callback=?';
     
     $.getJSON(url4list, function(jsonp){
