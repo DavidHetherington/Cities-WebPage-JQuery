@@ -1,3 +1,4 @@
+// -----------------------------------------------------------------------------
 //                                                                             
 //        Author: David Hetherington                                           
 //                                                                             
@@ -18,32 +19,80 @@
 //        Dependency: https://github.com/customd/jquery-number  (for number formatting)            
 //                                                                             
 //        David Hetherington - 17 December 2015                                
+// -----------------------------------------------------------------------------
 
 
 
+//  --- base URL of the  API server.
+var url4APIServer = 'http://ec2-52-91-83-136.compute-1.amazonaws.com';
+// var url4APIServer = 'http://localhost';
+// -----------------------------------------------------------------------------
+//
+//      Initial load of the Cities Table when the web page loads
+//
+// -----------------------------------------------------------------------------
  
 $(document).ready(function(){
-
-    //  --- base URL of the  API server.
-    var url4APIServer = 'http://ec2-52-91-83-136.compute-1.amazonaws.com';
     
+    GetCityCount();
+
+    GetCityTableContent('city');    
+
+});
+
+// -----------------------------------------------------------------------------
+//
+//      Get City Count
+//
+// -----------------------------------------------------------------------------
+function GetCityCount() {
+
     //  --- Get the count from the JSONP RESTful API    
     var url4count = url4APIServer + ':3000/api/cities/count?callback=?';
-    
+
     $.getJSON(url4count, function(jsonp){
-         // $("#debug-message").text( "jsonp callback " + JSON.stringify(jsonp, null, 2) );
          $("#cities-count").text( jsonp.count );
     });
 
+}
 
-    //  --- Get the list of cities from the JSONP RESTful API    
-    var url4list = url4APIServer + ':3000/api/cities/list?callback=?';
+// -----------------------------------------------------------------------------
+//
+//      Get City Table Content
+//
+// -----------------------------------------------------------------------------
+
+var currentColumn = "state";
+var columnSortPending = false;
+var currentSortOrder = "up";
+
+function GetCityTableContent(column) {
     
-    $.getJSON(url4list, function(jsonp){
-         $("#debug-message").text( "jsonp have city list ");
+    
+    
+    if (columnSortPending) return;      // Don't allow multiple pending sorts
+    columnSortPending = true;
+    
+    
+    
+    if (column == currentColumn) {      // Clicking on same column twice?    
+    
+        if (currentSortOrder == "up") currentSortOrder = "down";
+        else currentSortOrder = "up";
+    
+    } else currentSortOrder = "up";     // new column always start with min to max sort order
+    
 
-        // See http://stackoverflow.com/questions/21385976/how-to-make-a-16-x-16-inline-block-grid-using-a-loop
+    currentColumn = column;    
+    
+    //  --- Get the list of cities from the JSONP RESTful API    
         
+    citiesSetHeaderColor(column, "Yellow");
+    
+    var url4list = url4APIServer + ':3000/api/cities/list?sort=' + currentColumn + '&direction=' + currentSortOrder + '&callback=?' 
+
+    $.getJSON(url4list, function(jsonp){
+               
         var arrayLength = jsonp.length;
 
         var doc = document;
@@ -85,13 +134,35 @@ $(document).ready(function(){
             fragment.appendChild(tr);
         }
         
-        doc.getElementById( "cities-data-body" ).appendChild(fragment);        
+        doc.getElementById( "cities-data-body" ).appendChild(fragment);   
+
+        citiesSetHeaderColor(currentColumn, "YellowGreen");
+        
+        columnSortPending = false;
                  
     });
 
+}
 
+// -----------------------------------------------------------------------------
+//
+//      Utility function to set the background of a column given
+//      its class name. Sets all the other columns to the default
+//      color
+//
+// -----------------------------------------------------------------------------
+
+var defaultHeaderColor = "BurlyWood";
+
+function citiesSetHeaderColor(column, color) {
+
+    $(".header-city").css("background-color", defaultHeaderColor);
+    $(".header-state").css("background-color", defaultHeaderColor);
+    $(".header-population").css("background-color", defaultHeaderColor);
+    $(".header-crime").css("background-color", defaultHeaderColor);
+    $(".header-cost-of-living").css("background-color", defaultHeaderColor);
     
-});
-
-
-
+    var columnstring = ".header-" + column;
+    $(columnstring).css("background-color", color); 
+    return 1;
+}

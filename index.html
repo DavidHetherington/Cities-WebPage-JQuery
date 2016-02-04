@@ -41,28 +41,46 @@
         <!--    Left-hand area for the actual application content ---------- -->
         <section id="cities-description-area">
             <p>
-                Welcome to the Minimal SaaS demonstration architecture Cities 
+                Welcome to the Minimal SaaS Cities 
                 demonstration. This demonstration consists of three
                 pieces.
                 </p>
             <ul>
-                <li><strong>Web Front End - </strong>This webpage connects
-                    to the back end (business logic) server using a
-                    RESTful API.
+                <li><strong>Web Front-End - </strong>This webpage connects
+                    to the application server using a
+                    RESTful API. The web front-end is implemented using JQuery.
                     </li>
-                <li><strong>Back End - </strong>Provides the RESTful API
+                <li><strong>Application Server - </strong>Provides the RESTful API
                     and connects to a MongoDB NoSQL database instance.
                     The back end is implemented in Node.js and Express
                     and hosted on an Amazon EC2 Ubuntu instance.
                     </li>    
                 <li><strong>Database - </strong>The database is hosted
                     by Mongolab.com and is a MongoDB NoSQL document
-                    database.
+                    database. 
                     </li>
             </ul>
             <p>
-                <span class="not-implemented">Note: the add, delete, update,
-                    and column sort functions are not implemented yet.
+                The CSS design of this page is intentionally spartan with
+                a minimum of fancy formatting tricks. The main goal of this
+                demonstration is to demonstrate the techniques for
+                implementing the communication between the three pieces. As
+                such, the CSS design is intentionally quite simple so as to make
+                the source code easy to read and not confuse function provided
+                by the browser's CSS engine with front-end function implemented using
+                the web programming framework. 
+            </p>
+            <p>
+                Likewise, the column sort function is implemented by the database
+                (or in some cases by its API library on the application server) 
+                In a really SaaS product, it would probably make more sense
+                to sort this type of table in the web front-end. However, the
+                goal of this demonstration is to demonstrate RESTful API techniques
+                and showing how to pass the sort parameters in the API takes
+                precedence over achieving the snappiest performance in the browser.
+            </p>
+            <p>
+                <span class="not-implemented">Note: the add, delete, and update functions are not implemented yet.
                 </span>     
             </p>
         
@@ -75,16 +93,24 @@
             </header>
         
             <section id="cities-table">
+            
+            <div id="cities-count-box">
+                        <span id="cities-count">32</span> 
+                        cities in the database
+            </div>            
+            <p>
+                <em>Click a column header to sort. Click it again to reverse the sort order.</em>
+            </p>
                           
             <table id="cities-data-table">
 
                 <thead>
                     <tr>
-                        <th class="header-city">City</th>
-                        <th class="header-state">State</th>
-                        <th class="header-population">Population</th>
-                        <th class="header-crime">Crime Index</th>
-                        <th class="header-cost-of-living">Cost Index</th>
+                        <th class="header-city" onclick="GetCityTableContent('city')">City</th>      
+                        <th class="header-state" onclick="GetCityTableContent('state')">State</th>
+                        <th class="header-population" onclick="GetCityTableContent('population')">Population</th>
+                        <th class="header-crime" onclick="GetCityTableContent('crime')">Crime Index</th>
+                        <th class="header-cost-of-living" onclick="GetCityTableContent('cost-of-living')">Cost Index</th>
                     </tr>
                 </thead>
                 <tbody id=cities-data-body>
@@ -96,10 +122,7 @@
             
             <!--    Show cities count and buttons in the table footer  ----- -->
             <footer id="cities-footer">
-                    <div id="cities-count-box">
-                        <span id="cities-count">32</span> 
-                        cities in the database
-                    </div>
+                    
                     <p>        
                         <button class="city-edit-button" id="city-add">
                             Add
